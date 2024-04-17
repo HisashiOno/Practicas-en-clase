@@ -1,0 +1,12 @@
+def Acceso():
+    usuarios = {"Hisashi":"hisashi1" }
+    InicioSesion = False  
+    while not InicioSesion:
+        NombreUsuario =input("Ingrese su nombre de usuario: ")
+        contraseña=input("Ingrese su contraseña: ")
+        if NombreUsuario in usuarios and usuarios[NombreUsuario] == contraseña:
+            print("Inicio de sesión exitoso. ¡Bienvenido!:{}".format(NombreUsuario))
+            InicioSesion = True  
+        else:
+            print("Nombre de usuario o contraseña incorrectos. Inténtelo nuevamente.")
+Acceso()
