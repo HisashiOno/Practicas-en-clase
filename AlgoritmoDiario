@@ -1,0 +1,21 @@
+import qrcode
+from PIL import Image
+import io
+BaseDatosResataurante= {
+    "nombre": "restaurante",
+    "cuenta": "1234567890",
+    "monto diario": 15 }
+def GenerarCodigoQr(texto):
+    qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
+    qr.add_data(texto)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    return img
+def PagarDiariamente (restaurante):
+    print ("Bienvenido al", restaurante ["nombre"])
+    print ("Por favor, escanea el siguiente código qr para realizar el pago diario.")
+    print ("Monto a Pagar:", restaurante ["MontoDiario"], "BS")
+    print ("cuenta", restaurante ["cuenta"])
+    TextoCodigoQr= "cuenta:" + restaurante ["cuenta"] + "monto:" + str(restaurante["MontoDiario"]) + "BS"
+    GenerarCodigoQr (TextoCodigoQr)
+    PagarDiariamente (BaseDatosRestaurante) 
