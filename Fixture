@@ -1,0 +1,66 @@
+import numpy as np
+import random
+
+def FaseDeGrupos(equipos):
+    resultados = np.zeros((4, 4))
+    consolidador = np.array([])
+
+    for i in range(len(equipos)):
+        for j in range(len(equipos)):
+            if i != j:
+                golesLocal = random.randint(0, 5)
+                golesVisitante = random.randint(0, 5)
+                resultados[i][j] = golesLocal
+                resultados[j][i] = golesVisitante
+
+    print(resultados)
+
+    for i in range(len(equipos)):
+        for j in range(len(equipos)):
+            if i != j:
+                print(f"{equipos[i]} {round(resultados[i][j])}  {equipos[j]} {round(resultados[j][i])}")
+                if resultados[i][j] > resultados[j][i]:
+                    consolidador = np.append(consolidador, equipos[i])
+                    consolidador = np.append(consolidador, 3)
+                    consolidador = np.append(consolidador, round(resultados[i][j]))
+                    consolidador = np.append(consolidador, equipos[j])
+                    consolidador = np.append(consolidador, 0)
+                    consolidador = np.append(consolidador, round(resultados[j][i]))
+                    print(f"{equipos[i]} Gano el Partido y tiene 3 pts")
+                elif resultados[j][i] > resultados[i][j]:
+                    consolidador = np.append(consolidador, equipos[j])
+                    consolidador = np.append(consolidador, 3)
+                    consolidador = np.append(consolidador, round(resultados[j][i]))
+                    consolidador = np.append(consolidador, equipos[i])
+                    consolidador = np.append(consolidador, 0)
+                    consolidador = np.append(consolidador, round(resultados[i][j]))
+                    print(f"{equipos[j]} Gano el Partido y tiene 3 pts")
+                elif resultados[i][j] == resultados[j][i]:
+                    consolidador = np.append(consolidador, equipos[j])
+                    consolidador = np.append(consolidador, 1)
+                    consolidador = np.append(consolidador, round(resultados[j][i]))
+                    consolidador = np.append(consolidador, equipos[i])
+                    consolidador = np.append(consolidador, 1)
+                    consolidador = np.append(consolidador, round(resultados[i][j]))
+                    print(f"{equipos[i]} y {equipos[j]} Empataron el partido y tienen 1 pts")
+
+    puntos = {}
+    for equipo in equipos:
+        indices = np.where(consolidador == equipo)[0]
+        ganados = np.sum(np.int64(consolidador[indices + 1]))
+        goles = np.sum(np.int64(consolidador[indices + 2]))
+        puntos[equipo] = ganados
+
+    equipos_ordenados = sorted(puntos.items(), key=lambda x: x[1], reverse=True)
+
+    equipo_1 = equipos_ordenados[0][0]
+    equipo_2 = equipos_ordenados[1][0]
+
+    print("Equipos ganadores:")
+    print(f"1. {equipo_1}")
+    print(f"2. {equipo_2}")
+
+    print(consolidador)
+
+equipos =["Barcelona", "Flamengo", "River", "Independiente"]
+print(FaseDeGrupos(equipos))
