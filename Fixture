@@ -51,10 +51,10 @@ def FaseDeGrupos(equipos):
         goles = np.sum(np.int64(consolidador[indices + 2]))
         puntos[equipo] = ganados
 
-    equipos_ordenados = sorted(puntos.items(), key=lambda x: x[1], reverse=True)
+    equiposOrdenados = sorted(puntos.items(), key=lambda x: x[1], reverse=True)
 
-    equipo_1 = equipos_ordenados[0][0]
-    equipo_2 = equipos_ordenados[1][0]
+    equipo_1 = equiposOrdenados[0][0]
+    equipo_2 = equiposOrdenados[1][0]
 
     print("Equipos ganadores:")
     print(f"1. {equipo_1}")
